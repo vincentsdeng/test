@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.EvaluationresultMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Evaluationresult" >
+    <id column="RESULT_ID" property="resultId" jdbcType="DECIMAL" />
+    <result column="STU_ID" property="stuId" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zr.crm.model.Evaluationresult" extends="BaseResultMap" >
+    <result column="THE_RESULT_CONTENT" property="theResultContent" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RESULT_ID, STU_ID, UPDATE_TIME, CRETE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    THE_RESULT_CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zr.crm.model.EvaluationresultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EVALUATIONRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.EvaluationresultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EVALUATIONRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EVALUATIONRESULT
+    where RESULT_ID = #{resultId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from EVALUATIONRESULT
+    where RESULT_ID = #{resultId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.EvaluationresultExample" >
+    delete from EVALUATIONRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Evaluationresult" >
+    insert into EVALUATIONRESULT (RESULT_ID, STU_ID, UPDATE_TIME, 
+      CRETE_TIME, THE_RESULT_CONTENT)
+    values (#{resultId,jdbcType=DECIMAL}, #{stuId,jdbcType=DECIMAL}, #{updateTime,jdbcType=DATE}, 
+      #{creteTime,jdbcType=DATE}, #{theResultContent,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Evaluationresult" >
+    insert into EVALUATIONRESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        RESULT_ID,
+      </if>
+      <if test="stuId != null" >
+        STU_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+      <if test="theResultContent != null" >
+        THE_RESULT_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultId != null" >
+        #{resultId,jdbcType=DECIMAL},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+      <if test="theResultContent != null" >
+        #{theResultContent,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.EvaluationresultExample" resultType="java.lang.Integer" >
+    select count(*) from EVALUATIONRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EVALUATIONRESULT
+    <set >
+      <if test="record.resultId != null" >
+        RESULT_ID = #{record.resultId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stuId != null" >
+        STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+      <if test="record.theResultContent != null" >
+        THE_RESULT_CONTENT = #{record.theResultContent,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update EVALUATIONRESULT
+    set RESULT_ID = #{record.resultId,jdbcType=DECIMAL},
+      STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      THE_RESULT_CONTENT = #{record.theResultContent,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EVALUATIONRESULT
+    set RESULT_ID = #{record.resultId,jdbcType=DECIMAL},
+      STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Evaluationresult" >
+    update EVALUATIONRESULT
+    <set >
+      <if test="stuId != null" >
+        STU_ID = #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+      <if test="theResultContent != null" >
+        THE_RESULT_CONTENT = #{theResultContent,jdbcType=BLOB},
+      </if>
+    </set>
+    where RESULT_ID = #{resultId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zr.crm.model.Evaluationresult" >
+    update EVALUATIONRESULT
+    set STU_ID = #{stuId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE},
+      THE_RESULT_CONTENT = #{theResultContent,jdbcType=BLOB}
+    where RESULT_ID = #{resultId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Evaluationresult" >
+    update EVALUATIONRESULT
+    set STU_ID = #{stuId,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where RESULT_ID = #{resultId,jdbcType=DECIMAL}
+  </update>
+</mapper>

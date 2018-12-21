@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.StudentinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Studentinfo" >
+    <id column="STU_ID" property="stuId" jdbcType="DECIMAL" />
+    <result column="STU_NAME" property="stuName" jdbcType="VARCHAR" />
+    <result column="STU_SEX" property="stuSex" jdbcType="VARCHAR" />
+    <result column="STU_AGE" property="stuAge" jdbcType="DECIMAL" />
+    <result column="STU_TEL" property="stuTel" jdbcType="VARCHAR" />
+    <result column="STU_EDU" property="stuEdu" jdbcType="VARCHAR" />
+    <result column="STU_MAIOR" property="stuMaior" jdbcType="VARCHAR" />
+    <result column="STU_GRADUATE" property="stuGraduate" jdbcType="VARCHAR" />
+    <result column="STU_ADDRESS" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="STU_EXPE" property="stuExpe" jdbcType="VARCHAR" />
+    <result column="STU_TRAIN_TIME" property="stuTrainTime" jdbcType="DATE" />
+    <result column="STU_PROJECT_NO" property="stuProjectNo" jdbcType="DECIMAL" />
+    <result column="LATE_COUNT" property="lateCount" jdbcType="DECIMAL" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STU_ID, STU_NAME, STU_SEX, STU_AGE, STU_TEL, STU_EDU, STU_MAIOR, STU_GRADUATE, STU_ADDRESS, 
+    STU_EXPE, STU_TRAIN_TIME, STU_PROJECT_NO, LATE_COUNT, UPDATE_TIME, CRETE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.StudentinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from STUDENTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from STUDENTINFO
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from STUDENTINFO
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.StudentinfoExample" >
+    delete from STUDENTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Studentinfo" >
+    insert into STUDENTINFO (STU_ID, STU_NAME, STU_SEX, 
+      STU_AGE, STU_TEL, STU_EDU, 
+      STU_MAIOR, STU_GRADUATE, STU_ADDRESS, 
+      STU_EXPE, STU_TRAIN_TIME, STU_PROJECT_NO, 
+      LATE_COUNT, UPDATE_TIME, CRETE_TIME
+      )
+    values (#{stuId,jdbcType=DECIMAL}, #{stuName,jdbcType=VARCHAR}, #{stuSex,jdbcType=VARCHAR}, 
+      #{stuAge,jdbcType=DECIMAL}, #{stuTel,jdbcType=VARCHAR}, #{stuEdu,jdbcType=VARCHAR}, 
+      #{stuMaior,jdbcType=VARCHAR}, #{stuGraduate,jdbcType=VARCHAR}, #{stuAddress,jdbcType=VARCHAR}, 
+      #{stuExpe,jdbcType=VARCHAR}, #{stuTrainTime,jdbcType=DATE}, #{stuProjectNo,jdbcType=DECIMAL}, 
+      #{lateCount,jdbcType=DECIMAL}, #{updateTime,jdbcType=DATE}, #{creteTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Studentinfo" >
+    insert into STUDENTINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        STU_ID,
+      </if>
+      <if test="stuName != null" >
+        STU_NAME,
+      </if>
+      <if test="stuSex != null" >
+        STU_SEX,
+      </if>
+      <if test="stuAge != null" >
+        STU_AGE,
+      </if>
+      <if test="stuTel != null" >
+        STU_TEL,
+      </if>
+      <if test="stuEdu != null" >
+        STU_EDU,
+      </if>
+      <if test="stuMaior != null" >
+        STU_MAIOR,
+      </if>
+      <if test="stuGraduate != null" >
+        STU_GRADUATE,
+      </if>
+      <if test="stuAddress != null" >
+        STU_ADDRESS,
+      </if>
+      <if test="stuExpe != null" >
+        STU_EXPE,
+      </if>
+      <if test="stuTrainTime != null" >
+        STU_TRAIN_TIME,
+      </if>
+      <if test="stuProjectNo != null" >
+        STU_PROJECT_NO,
+      </if>
+      <if test="lateCount != null" >
+        LATE_COUNT,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        #{stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAge != null" >
+        #{stuAge,jdbcType=DECIMAL},
+      </if>
+      <if test="stuTel != null" >
+        #{stuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stuEdu != null" >
+        #{stuEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMaior != null" >
+        #{stuMaior,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGraduate != null" >
+        #{stuGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuExpe != null" >
+        #{stuExpe,jdbcType=VARCHAR},
+      </if>
+      <if test="stuTrainTime != null" >
+        #{stuTrainTime,jdbcType=DATE},
+      </if>
+      <if test="stuProjectNo != null" >
+        #{stuProjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="lateCount != null" >
+        #{lateCount,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.StudentinfoExample" resultType="java.lang.Integer" >
+    select count(*) from STUDENTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update STUDENTINFO
+    <set >
+      <if test="record.stuId != null" >
+        STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stuName != null" >
+        STU_NAME = #{record.stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuSex != null" >
+        STU_SEX = #{record.stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAge != null" >
+        STU_AGE = #{record.stuAge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stuTel != null" >
+        STU_TEL = #{record.stuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuEdu != null" >
+        STU_EDU = #{record.stuEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuMaior != null" >
+        STU_MAIOR = #{record.stuMaior,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuGraduate != null" >
+        STU_GRADUATE = #{record.stuGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAddress != null" >
+        STU_ADDRESS = #{record.stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuExpe != null" >
+        STU_EXPE = #{record.stuExpe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuTrainTime != null" >
+        STU_TRAIN_TIME = #{record.stuTrainTime,jdbcType=DATE},
+      </if>
+      <if test="record.stuProjectNo != null" >
+        STU_PROJECT_NO = #{record.stuProjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lateCount != null" >
+        LATE_COUNT = #{record.lateCount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update STUDENTINFO
+    set STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      STU_NAME = #{record.stuName,jdbcType=VARCHAR},
+      STU_SEX = #{record.stuSex,jdbcType=VARCHAR},
+      STU_AGE = #{record.stuAge,jdbcType=DECIMAL},
+      STU_TEL = #{record.stuTel,jdbcType=VARCHAR},
+      STU_EDU = #{record.stuEdu,jdbcType=VARCHAR},
+      STU_MAIOR = #{record.stuMaior,jdbcType=VARCHAR},
+      STU_GRADUATE = #{record.stuGraduate,jdbcType=VARCHAR},
+      STU_ADDRESS = #{record.stuAddress,jdbcType=VARCHAR},
+      STU_EXPE = #{record.stuExpe,jdbcType=VARCHAR},
+      STU_TRAIN_TIME = #{record.stuTrainTime,jdbcType=DATE},
+      STU_PROJECT_NO = #{record.stuProjectNo,jdbcType=DECIMAL},
+      LATE_COUNT = #{record.lateCount,jdbcType=DECIMAL},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Studentinfo" >
+    update STUDENTINFO
+    <set >
+      <if test="stuName != null" >
+        STU_NAME = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        STU_SEX = #{stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAge != null" >
+        STU_AGE = #{stuAge,jdbcType=DECIMAL},
+      </if>
+      <if test="stuTel != null" >
+        STU_TEL = #{stuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="stuEdu != null" >
+        STU_EDU = #{stuEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="stuMaior != null" >
+        STU_MAIOR = #{stuMaior,jdbcType=VARCHAR},
+      </if>
+      <if test="stuGraduate != null" >
+        STU_GRADUATE = #{stuGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        STU_ADDRESS = #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuExpe != null" >
+        STU_EXPE = #{stuExpe,jdbcType=VARCHAR},
+      </if>
+      <if test="stuTrainTime != null" >
+        STU_TRAIN_TIME = #{stuTrainTime,jdbcType=DATE},
+      </if>
+      <if test="stuProjectNo != null" >
+        STU_PROJECT_NO = #{stuProjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="lateCount != null" >
+        LATE_COUNT = #{lateCount,jdbcType=DECIMAL},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Studentinfo" >
+    update STUDENTINFO
+    set STU_NAME = #{stuName,jdbcType=VARCHAR},
+      STU_SEX = #{stuSex,jdbcType=VARCHAR},
+      STU_AGE = #{stuAge,jdbcType=DECIMAL},
+      STU_TEL = #{stuTel,jdbcType=VARCHAR},
+      STU_EDU = #{stuEdu,jdbcType=VARCHAR},
+      STU_MAIOR = #{stuMaior,jdbcType=VARCHAR},
+      STU_GRADUATE = #{stuGraduate,jdbcType=VARCHAR},
+      STU_ADDRESS = #{stuAddress,jdbcType=VARCHAR},
+      STU_EXPE = #{stuExpe,jdbcType=VARCHAR},
+      STU_TRAIN_TIME = #{stuTrainTime,jdbcType=DATE},
+      STU_PROJECT_NO = #{stuProjectNo,jdbcType=DECIMAL},
+      LATE_COUNT = #{lateCount,jdbcType=DECIMAL},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </update>
+</mapper>

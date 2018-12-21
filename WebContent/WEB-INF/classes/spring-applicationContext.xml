@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- 开启自动扫包 -->
+     <context:component-scan base-package="com.zr.crm.service"></context:component-scan>
+	
+	<!-- 1.资源文件加载 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- 2.配置c3p0数据源，连接数据数据库的bean -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		
+		<!-- <property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property> -->
+		<!-- <property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property> -->
+	</bean>
+	
+	<!-- 
+		3.mybatis配置sqlSessionFactory工厂 :
+			1.引用数据源
+			2.指定实体类的包名
+	-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:com/zr/crm/dao/*.xml"></property>
+		<property name="typeAliasesPackage" value="com.zr.crm.model"></property>
+	</bean>
+	
+	<!-- 
+		4.mybatis自动扫描加载映射文件/接口 :
+			1.扫描映射接口和映射文件所在的包
+			2.引用sqlSessionFactory
+	-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zr.crm.dao"></property>
+		
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	<!--  
+		5. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源
+	-->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 6. 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
+</beans>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.ProjectmanagerinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Projectmanagerinfo" >
+    <id column="PRJ_MNG_ID" property="prjMngId" jdbcType="DECIMAL" />
+    <result column="PRJ_MNG_NAME" property="prjMngName" jdbcType="VARCHAR" />
+    <result column="PRJ_MNG_MAJOR" property="prjMngMajor" jdbcType="VARCHAR" />
+    <result column="PRJ_MNG_YEARS" property="prjMngYears" jdbcType="DECIMAL" />
+    <result column="PRJ_MNG_JOIN" property="prjMngJoin" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PRJ_MNG_ID, PRJ_MNG_NAME, PRJ_MNG_MAJOR, PRJ_MNG_YEARS, PRJ_MNG_JOIN, UPDATE_TIME, 
+    CRETE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.ProjectmanagerinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROJECTMANAGERINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROJECTMANAGERINFO
+    where PRJ_MNG_ID = #{prjMngId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from PROJECTMANAGERINFO
+    where PRJ_MNG_ID = #{prjMngId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.ProjectmanagerinfoExample" >
+    delete from PROJECTMANAGERINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Projectmanagerinfo" >
+    insert into PROJECTMANAGERINFO (PRJ_MNG_ID, PRJ_MNG_NAME, PRJ_MNG_MAJOR, 
+      PRJ_MNG_YEARS, PRJ_MNG_JOIN, UPDATE_TIME, 
+      CRETE_TIME)
+    values (#{prjMngId,jdbcType=DECIMAL}, #{prjMngName,jdbcType=VARCHAR}, #{prjMngMajor,jdbcType=VARCHAR}, 
+      #{prjMngYears,jdbcType=DECIMAL}, #{prjMngJoin,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, 
+      #{creteTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Projectmanagerinfo" >
+    insert into PROJECTMANAGERINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prjMngId != null" >
+        PRJ_MNG_ID,
+      </if>
+      <if test="prjMngName != null" >
+        PRJ_MNG_NAME,
+      </if>
+      <if test="prjMngMajor != null" >
+        PRJ_MNG_MAJOR,
+      </if>
+      <if test="prjMngYears != null" >
+        PRJ_MNG_YEARS,
+      </if>
+      <if test="prjMngJoin != null" >
+        PRJ_MNG_JOIN,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prjMngId != null" >
+        #{prjMngId,jdbcType=DECIMAL},
+      </if>
+      <if test="prjMngName != null" >
+        #{prjMngName,jdbcType=VARCHAR},
+      </if>
+      <if test="prjMngMajor != null" >
+        #{prjMngMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="prjMngYears != null" >
+        #{prjMngYears,jdbcType=DECIMAL},
+      </if>
+      <if test="prjMngJoin != null" >
+        #{prjMngJoin,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.ProjectmanagerinfoExample" resultType="java.lang.Integer" >
+    select count(*) from PROJECTMANAGERINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROJECTMANAGERINFO
+    <set >
+      <if test="record.prjMngId != null" >
+        PRJ_MNG_ID = #{record.prjMngId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prjMngName != null" >
+        PRJ_MNG_NAME = #{record.prjMngName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prjMngMajor != null" >
+        PRJ_MNG_MAJOR = #{record.prjMngMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prjMngYears != null" >
+        PRJ_MNG_YEARS = #{record.prjMngYears,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prjMngJoin != null" >
+        PRJ_MNG_JOIN = #{record.prjMngJoin,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROJECTMANAGERINFO
+    set PRJ_MNG_ID = #{record.prjMngId,jdbcType=DECIMAL},
+      PRJ_MNG_NAME = #{record.prjMngName,jdbcType=VARCHAR},
+      PRJ_MNG_MAJOR = #{record.prjMngMajor,jdbcType=VARCHAR},
+      PRJ_MNG_YEARS = #{record.prjMngYears,jdbcType=DECIMAL},
+      PRJ_MNG_JOIN = #{record.prjMngJoin,jdbcType=DATE},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Projectmanagerinfo" >
+    update PROJECTMANAGERINFO
+    <set >
+      <if test="prjMngName != null" >
+        PRJ_MNG_NAME = #{prjMngName,jdbcType=VARCHAR},
+      </if>
+      <if test="prjMngMajor != null" >
+        PRJ_MNG_MAJOR = #{prjMngMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="prjMngYears != null" >
+        PRJ_MNG_YEARS = #{prjMngYears,jdbcType=DECIMAL},
+      </if>
+      <if test="prjMngJoin != null" >
+        PRJ_MNG_JOIN = #{prjMngJoin,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    where PRJ_MNG_ID = #{prjMngId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Projectmanagerinfo" >
+    update PROJECTMANAGERINFO
+    set PRJ_MNG_NAME = #{prjMngName,jdbcType=VARCHAR},
+      PRJ_MNG_MAJOR = #{prjMngMajor,jdbcType=VARCHAR},
+      PRJ_MNG_YEARS = #{prjMngYears,jdbcType=DECIMAL},
+      PRJ_MNG_JOIN = #{prjMngJoin,jdbcType=DATE},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where PRJ_MNG_ID = #{prjMngId,jdbcType=DECIMAL}
+  </update>
+</mapper>

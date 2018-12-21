@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.AttendanceinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Attendanceinfo" >
+    <id column="STU_ID" property="stuId" jdbcType="DECIMAL" />
+    <result column="ATTENDANCE_TIME" property="attendanceTime" jdbcType="DATE" />
+    <result column="ATTENDANCE_STATUS" property="attendanceStatus" jdbcType="VARCHAR" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STU_ID, ATTENDANCE_TIME, ATTENDANCE_STATUS, CRETE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.AttendanceinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ATTENDANCEINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from ATTENDANCEINFO
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from ATTENDANCEINFO
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.AttendanceinfoExample" >
+    delete from ATTENDANCEINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Attendanceinfo" >
+    insert into ATTENDANCEINFO (STU_ID, ATTENDANCE_TIME, ATTENDANCE_STATUS, 
+      CRETE_TIME)
+    values (#{stuId,jdbcType=DECIMAL}, #{attendanceTime,jdbcType=DATE}, #{attendanceStatus,jdbcType=VARCHAR}, 
+      #{creteTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Attendanceinfo" >
+    insert into ATTENDANCEINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        STU_ID,
+      </if>
+      <if test="attendanceTime != null" >
+        ATTENDANCE_TIME,
+      </if>
+      <if test="attendanceStatus != null" >
+        ATTENDANCE_STATUS,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="attendanceTime != null" >
+        #{attendanceTime,jdbcType=DATE},
+      </if>
+      <if test="attendanceStatus != null" >
+        #{attendanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.AttendanceinfoExample" resultType="java.lang.Integer" >
+    select count(*) from ATTENDANCEINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ATTENDANCEINFO
+    <set >
+      <if test="record.stuId != null" >
+        STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attendanceTime != null" >
+        ATTENDANCE_TIME = #{record.attendanceTime,jdbcType=DATE},
+      </if>
+      <if test="record.attendanceStatus != null" >
+        ATTENDANCE_STATUS = #{record.attendanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ATTENDANCEINFO
+    set STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      ATTENDANCE_TIME = #{record.attendanceTime,jdbcType=DATE},
+      ATTENDANCE_STATUS = #{record.attendanceStatus,jdbcType=VARCHAR},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Attendanceinfo" >
+    update ATTENDANCEINFO
+    <set >
+      <if test="attendanceTime != null" >
+        ATTENDANCE_TIME = #{attendanceTime,jdbcType=DATE},
+      </if>
+      <if test="attendanceStatus != null" >
+        ATTENDANCE_STATUS = #{attendanceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Attendanceinfo" >
+    update ATTENDANCEINFO
+    set ATTENDANCE_TIME = #{attendanceTime,jdbcType=DATE},
+      ATTENDANCE_STATUS = #{attendanceStatus,jdbcType=VARCHAR},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where STU_ID = #{stuId,jdbcType=DECIMAL}
+  </update>
+</mapper>

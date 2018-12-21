@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.ExaminfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Examinfo" >
+    <id column="EXAM_ID" property="examId" jdbcType="DECIMAL" />
+    <result column="EXAM_NAME" property="examName" jdbcType="VARCHAR" />
+    <result column="EXAM_NO" property="examNo" jdbcType="DECIMAL" />
+    <result column="EXAM_TITLE" property="examTitle" jdbcType="VARCHAR" />
+    <result column="SUB_EXAM_TITLE" property="subExamTitle" jdbcType="VARCHAR" />
+    <result column="SUB_EXAM_CONTENT" property="subExamContent" jdbcType="VARCHAR" />
+    <result column="SUB_EXAM_SCORE" property="subExamScore" jdbcType="DECIMAL" />
+    <result column="SUB_EXAM_ANSWER" property="subExamAnswer" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CREAT_TIME" property="creatTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EXAM_ID, EXAM_NAME, EXAM_NO, EXAM_TITLE, SUB_EXAM_TITLE, SUB_EXAM_CONTENT, SUB_EXAM_SCORE, 
+    SUB_EXAM_ANSWER, UPDATE_TIME, CREAT_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.ExaminfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EXAMINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from EXAMINFO
+    where EXAM_ID = #{examId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from EXAMINFO
+    where EXAM_ID = #{examId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.ExaminfoExample" >
+    delete from EXAMINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Examinfo" >
+    insert into EXAMINFO (EXAM_ID, EXAM_NAME, EXAM_NO, 
+      EXAM_TITLE, SUB_EXAM_TITLE, SUB_EXAM_CONTENT, 
+      SUB_EXAM_SCORE, SUB_EXAM_ANSWER, UPDATE_TIME, 
+      CREAT_TIME)
+    values (#{examId,jdbcType=DECIMAL}, #{examName,jdbcType=VARCHAR}, #{examNo,jdbcType=DECIMAL}, 
+      #{examTitle,jdbcType=VARCHAR}, #{subExamTitle,jdbcType=VARCHAR}, #{subExamContent,jdbcType=VARCHAR}, 
+      #{subExamScore,jdbcType=DECIMAL}, #{subExamAnswer,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, 
+      #{creatTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Examinfo" >
+    insert into EXAMINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        EXAM_ID,
+      </if>
+      <if test="examName != null" >
+        EXAM_NAME,
+      </if>
+      <if test="examNo != null" >
+        EXAM_NO,
+      </if>
+      <if test="examTitle != null" >
+        EXAM_TITLE,
+      </if>
+      <if test="subExamTitle != null" >
+        SUB_EXAM_TITLE,
+      </if>
+      <if test="subExamContent != null" >
+        SUB_EXAM_CONTENT,
+      </if>
+      <if test="subExamScore != null" >
+        SUB_EXAM_SCORE,
+      </if>
+      <if test="subExamAnswer != null" >
+        SUB_EXAM_ANSWER,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creatTime != null" >
+        CREAT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        #{examId,jdbcType=DECIMAL},
+      </if>
+      <if test="examName != null" >
+        #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="examNo != null" >
+        #{examNo,jdbcType=DECIMAL},
+      </if>
+      <if test="examTitle != null" >
+        #{examTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamTitle != null" >
+        #{subExamTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamContent != null" >
+        #{subExamContent,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamScore != null" >
+        #{subExamScore,jdbcType=DECIMAL},
+      </if>
+      <if test="subExamAnswer != null" >
+        #{subExamAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.ExaminfoExample" resultType="java.lang.Integer" >
+    select count(*) from EXAMINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EXAMINFO
+    <set >
+      <if test="record.examId != null" >
+        EXAM_ID = #{record.examId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.examName != null" >
+        EXAM_NAME = #{record.examName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examNo != null" >
+        EXAM_NO = #{record.examNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.examTitle != null" >
+        EXAM_TITLE = #{record.examTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subExamTitle != null" >
+        SUB_EXAM_TITLE = #{record.subExamTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subExamContent != null" >
+        SUB_EXAM_CONTENT = #{record.subExamContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subExamScore != null" >
+        SUB_EXAM_SCORE = #{record.subExamScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.subExamAnswer != null" >
+        SUB_EXAM_ANSWER = #{record.subExamAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creatTime != null" >
+        CREAT_TIME = #{record.creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EXAMINFO
+    set EXAM_ID = #{record.examId,jdbcType=DECIMAL},
+      EXAM_NAME = #{record.examName,jdbcType=VARCHAR},
+      EXAM_NO = #{record.examNo,jdbcType=DECIMAL},
+      EXAM_TITLE = #{record.examTitle,jdbcType=VARCHAR},
+      SUB_EXAM_TITLE = #{record.subExamTitle,jdbcType=VARCHAR},
+      SUB_EXAM_CONTENT = #{record.subExamContent,jdbcType=VARCHAR},
+      SUB_EXAM_SCORE = #{record.subExamScore,jdbcType=DECIMAL},
+      SUB_EXAM_ANSWER = #{record.subExamAnswer,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CREAT_TIME = #{record.creatTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Examinfo" >
+    update EXAMINFO
+    <set >
+      <if test="examName != null" >
+        EXAM_NAME = #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="examNo != null" >
+        EXAM_NO = #{examNo,jdbcType=DECIMAL},
+      </if>
+      <if test="examTitle != null" >
+        EXAM_TITLE = #{examTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamTitle != null" >
+        SUB_EXAM_TITLE = #{subExamTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamContent != null" >
+        SUB_EXAM_CONTENT = #{subExamContent,jdbcType=VARCHAR},
+      </if>
+      <if test="subExamScore != null" >
+        SUB_EXAM_SCORE = #{subExamScore,jdbcType=DECIMAL},
+      </if>
+      <if test="subExamAnswer != null" >
+        SUB_EXAM_ANSWER = #{subExamAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creatTime != null" >
+        CREAT_TIME = #{creatTime,jdbcType=DATE},
+      </if>
+    </set>
+    where EXAM_ID = #{examId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Examinfo" >
+    update EXAMINFO
+    set EXAM_NAME = #{examName,jdbcType=VARCHAR},
+      EXAM_NO = #{examNo,jdbcType=DECIMAL},
+      EXAM_TITLE = #{examTitle,jdbcType=VARCHAR},
+      SUB_EXAM_TITLE = #{subExamTitle,jdbcType=VARCHAR},
+      SUB_EXAM_CONTENT = #{subExamContent,jdbcType=VARCHAR},
+      SUB_EXAM_SCORE = #{subExamScore,jdbcType=DECIMAL},
+      SUB_EXAM_ANSWER = #{subExamAnswer,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CREAT_TIME = #{creatTime,jdbcType=DATE}
+    where EXAM_ID = #{examId,jdbcType=DECIMAL}
+  </update>
+</mapper>

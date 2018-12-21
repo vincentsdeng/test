@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.ProjectinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Projectinfo" >
+    <id column="PRI_NO" property="priNo" jdbcType="DECIMAL" />
+    <result column="PRI_TYPE" property="priType" jdbcType="VARCHAR" />
+    <result column="PRI_LOCATION" property="priLocation" jdbcType="VARCHAR" />
+    <result column="PRI_START_TIME" property="priStartTime" jdbcType="DATE" />
+    <result column="PRI_ASSISTANT" property="priAssistant" jdbcType="VARCHAR" />
+    <result column="PRI_STATUS" property="priStatus" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PRI_NO, PRI_TYPE, PRI_LOCATION, PRI_START_TIME, PRI_ASSISTANT, PRI_STATUS, UPDATE_TIME, 
+    CRETE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.ProjectinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PROJECTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from PROJECTINFO
+    where PRI_NO = #{priNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from PROJECTINFO
+    where PRI_NO = #{priNo,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.ProjectinfoExample" >
+    delete from PROJECTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Projectinfo" >
+    insert into PROJECTINFO (PRI_NO, PRI_TYPE, PRI_LOCATION, 
+      PRI_START_TIME, PRI_ASSISTANT, PRI_STATUS, 
+      UPDATE_TIME, CRETE_TIME)
+    values (#{priNo,jdbcType=DECIMAL}, #{priType,jdbcType=VARCHAR}, #{priLocation,jdbcType=VARCHAR}, 
+      #{priStartTime,jdbcType=DATE}, #{priAssistant,jdbcType=VARCHAR}, #{priStatus,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=DATE}, #{creteTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Projectinfo" >
+    insert into PROJECTINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="priNo != null" >
+        PRI_NO,
+      </if>
+      <if test="priType != null" >
+        PRI_TYPE,
+      </if>
+      <if test="priLocation != null" >
+        PRI_LOCATION,
+      </if>
+      <if test="priStartTime != null" >
+        PRI_START_TIME,
+      </if>
+      <if test="priAssistant != null" >
+        PRI_ASSISTANT,
+      </if>
+      <if test="priStatus != null" >
+        PRI_STATUS,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="priNo != null" >
+        #{priNo,jdbcType=DECIMAL},
+      </if>
+      <if test="priType != null" >
+        #{priType,jdbcType=VARCHAR},
+      </if>
+      <if test="priLocation != null" >
+        #{priLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="priStartTime != null" >
+        #{priStartTime,jdbcType=DATE},
+      </if>
+      <if test="priAssistant != null" >
+        #{priAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="priStatus != null" >
+        #{priStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.ProjectinfoExample" resultType="java.lang.Integer" >
+    select count(*) from PROJECTINFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PROJECTINFO
+    <set >
+      <if test="record.priNo != null" >
+        PRI_NO = #{record.priNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.priType != null" >
+        PRI_TYPE = #{record.priType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priLocation != null" >
+        PRI_LOCATION = #{record.priLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priStartTime != null" >
+        PRI_START_TIME = #{record.priStartTime,jdbcType=DATE},
+      </if>
+      <if test="record.priAssistant != null" >
+        PRI_ASSISTANT = #{record.priAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priStatus != null" >
+        PRI_STATUS = #{record.priStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PROJECTINFO
+    set PRI_NO = #{record.priNo,jdbcType=DECIMAL},
+      PRI_TYPE = #{record.priType,jdbcType=VARCHAR},
+      PRI_LOCATION = #{record.priLocation,jdbcType=VARCHAR},
+      PRI_START_TIME = #{record.priStartTime,jdbcType=DATE},
+      PRI_ASSISTANT = #{record.priAssistant,jdbcType=VARCHAR},
+      PRI_STATUS = #{record.priStatus,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Projectinfo" >
+    update PROJECTINFO
+    <set >
+      <if test="priType != null" >
+        PRI_TYPE = #{priType,jdbcType=VARCHAR},
+      </if>
+      <if test="priLocation != null" >
+        PRI_LOCATION = #{priLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="priStartTime != null" >
+        PRI_START_TIME = #{priStartTime,jdbcType=DATE},
+      </if>
+      <if test="priAssistant != null" >
+        PRI_ASSISTANT = #{priAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="priStatus != null" >
+        PRI_STATUS = #{priStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    where PRI_NO = #{priNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Projectinfo" >
+    update PROJECTINFO
+    set PRI_TYPE = #{priType,jdbcType=VARCHAR},
+      PRI_LOCATION = #{priLocation,jdbcType=VARCHAR},
+      PRI_START_TIME = #{priStartTime,jdbcType=DATE},
+      PRI_ASSISTANT = #{priAssistant,jdbcType=VARCHAR},
+      PRI_STATUS = #{priStatus,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where PRI_NO = #{priNo,jdbcType=DECIMAL}
+  </update>
+</mapper>

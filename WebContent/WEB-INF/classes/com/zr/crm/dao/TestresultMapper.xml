@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.crm.dao.TestresultMapper" >
+  <resultMap id="BaseResultMap" type="com.zr.crm.model.Testresult" >
+    <id column="TEST_NO" property="testNo" jdbcType="DECIMAL" />
+    <result column="SUBJECT_NO" property="subjectNo" jdbcType="DECIMAL" />
+    <result column="STU_ID" property="stuId" jdbcType="DECIMAL" />
+    <result column="TEST_SCORE" property="testScore" jdbcType="DECIMAL" />
+    <result column="TEST_STATUS" property="testStatus" jdbcType="VARCHAR" />
+    <result column="TEST_TIME" property="testTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="CRETE_TIME" property="creteTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEST_NO, SUBJECT_NO, STU_ID, TEST_SCORE, TEST_STATUS, TEST_TIME, UPDATE_TIME, CRETE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.crm.model.TestresultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TESTRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TESTRESULT
+    where TEST_NO = #{testNo,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TESTRESULT
+    where TEST_NO = #{testNo,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zr.crm.model.TestresultExample" >
+    delete from TESTRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zr.crm.model.Testresult" >
+    insert into TESTRESULT (TEST_NO, SUBJECT_NO, STU_ID, 
+      TEST_SCORE, TEST_STATUS, TEST_TIME, 
+      UPDATE_TIME, CRETE_TIME)
+    values (#{testNo,jdbcType=DECIMAL}, #{subjectNo,jdbcType=DECIMAL}, #{stuId,jdbcType=DECIMAL}, 
+      #{testScore,jdbcType=DECIMAL}, #{testStatus,jdbcType=VARCHAR}, #{testTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{creteTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zr.crm.model.Testresult" >
+    insert into TESTRESULT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testNo != null" >
+        TEST_NO,
+      </if>
+      <if test="subjectNo != null" >
+        SUBJECT_NO,
+      </if>
+      <if test="stuId != null" >
+        STU_ID,
+      </if>
+      <if test="testScore != null" >
+        TEST_SCORE,
+      </if>
+      <if test="testStatus != null" >
+        TEST_STATUS,
+      </if>
+      <if test="testTime != null" >
+        TEST_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testNo != null" >
+        #{testNo,jdbcType=DECIMAL},
+      </if>
+      <if test="subjectNo != null" >
+        #{subjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="testScore != null" >
+        #{testScore,jdbcType=DECIMAL},
+      </if>
+      <if test="testStatus != null" >
+        #{testStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="testTime != null" >
+        #{testTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        #{creteTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zr.crm.model.TestresultExample" resultType="java.lang.Integer" >
+    select count(*) from TESTRESULT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TESTRESULT
+    <set >
+      <if test="record.testNo != null" >
+        TEST_NO = #{record.testNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.subjectNo != null" >
+        SUBJECT_NO = #{record.subjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stuId != null" >
+        STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testScore != null" >
+        TEST_SCORE = #{record.testScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.testStatus != null" >
+        TEST_STATUS = #{record.testStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testTime != null" >
+        TEST_TIME = #{record.testTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.creteTime != null" >
+        CRETE_TIME = #{record.creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TESTRESULT
+    set TEST_NO = #{record.testNo,jdbcType=DECIMAL},
+      SUBJECT_NO = #{record.subjectNo,jdbcType=DECIMAL},
+      STU_ID = #{record.stuId,jdbcType=DECIMAL},
+      TEST_SCORE = #{record.testScore,jdbcType=DECIMAL},
+      TEST_STATUS = #{record.testStatus,jdbcType=VARCHAR},
+      TEST_TIME = #{record.testTime,jdbcType=DATE},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      CRETE_TIME = #{record.creteTime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zr.crm.model.Testresult" >
+    update TESTRESULT
+    <set >
+      <if test="subjectNo != null" >
+        SUBJECT_NO = #{subjectNo,jdbcType=DECIMAL},
+      </if>
+      <if test="stuId != null" >
+        STU_ID = #{stuId,jdbcType=DECIMAL},
+      </if>
+      <if test="testScore != null" >
+        TEST_SCORE = #{testScore,jdbcType=DECIMAL},
+      </if>
+      <if test="testStatus != null" >
+        TEST_STATUS = #{testStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="testTime != null" >
+        TEST_TIME = #{testTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="creteTime != null" >
+        CRETE_TIME = #{creteTime,jdbcType=DATE},
+      </if>
+    </set>
+    where TEST_NO = #{testNo,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zr.crm.model.Testresult" >
+    update TESTRESULT
+    set SUBJECT_NO = #{subjectNo,jdbcType=DECIMAL},
+      STU_ID = #{stuId,jdbcType=DECIMAL},
+      TEST_SCORE = #{testScore,jdbcType=DECIMAL},
+      TEST_STATUS = #{testStatus,jdbcType=VARCHAR},
+      TEST_TIME = #{testTime,jdbcType=DATE},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      CRETE_TIME = #{creteTime,jdbcType=DATE}
+    where TEST_NO = #{testNo,jdbcType=DECIMAL}
+  </update>
+</mapper>
